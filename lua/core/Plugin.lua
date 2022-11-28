@@ -2,7 +2,7 @@ Utils = require("Utils")
 
 Plugin            = {
   name            = nil, -- the plugin name
-  repo            = nil, -- the github repo name
+  repos           = nil, -- the github repos name, string or table
   description     = nil, -- the plugin description
   configs         = {},  -- the config that finaly used
   setup           = nil, -- the config function that run before plugin loaded
@@ -13,7 +13,7 @@ Plugin            = {
 function Plugin:new(opts)
   local obj         = {
     name            = opts and opts.name or nil,
-    repo            = opts and opts.repo or nil,
+    repos           = opts and opts.repos or nil,
     description     = opts and opts.description or nil,
     configs         = opts and opts.configs or {},
     config          = opts and opts.config or nil,
@@ -21,6 +21,7 @@ function Plugin:new(opts)
   }
   setmetatable(obj, self)
   self.__index = self
+  self.__newindex = self
 
   return obj
 end
@@ -28,7 +29,7 @@ end
 -- Delete a Plugin object
 function Plugin:delete()
   self.name            = nil
-  self.repo            = nil
+  self.repos           = nil
   self.configs         = nil
   self.config          = nil
   self.setup           = nil
@@ -47,10 +48,14 @@ end
 -- Config for a plugin
 -- @config: can override the configs & default_configs in new()
 function Plugin:Config(configs)
-  Utils:apply_defaults(configs, self.configs)
+  self.configs = Utils:apply_defaults(configs, self.configs)
   if self.config then
     self.config(self.configs)
   end
+end
+
+function Plugin:get_configs()
+  return self.configs
 end
 
 return Plugin

@@ -1,9 +1,9 @@
-local name = "neovim"
-local repo = "none"
+local name = "vim-options"
 local description = "Vim basic default settings"
 local default_configs = {
   opt = {
     number = true,
+    -- relativenumber = true,
   },
   g = {},
 
@@ -31,7 +31,6 @@ end
 
 local M       = {
   name        = name,
-  repo        = repo,
   description = description,
   configs     = default_configs,
   config      = config_func,
