@@ -1,5 +1,6 @@
 local name = "neovim"
 local repo = "none"
+local description = "Vim basic default settings"
 local default_configs = {
   opt = {
     number = true,
@@ -14,13 +15,10 @@ local default_configs = {
   cmd = {},
 }
 
-local setup = function(config)
-end
-
 local config_func = function(config)
-  local o = vim.opt
-  local g = vim.g
-  local cmd = vim.api.nvim_exec
+  local o    = vim.opt
+  local g    = vim.g
+  local cmd  = vim.api.nvim_exec
   local conf = config
 
   for key, value in pairs(conf.g) do g[key] = value end
@@ -31,12 +29,12 @@ local config_func = function(config)
   cmd('filetype indent ' .. conf.filetype.indent, false)
 end
 
-local M = {
-  name = name,
-  repo = repo,
-  configs = default_configs,
-  setup = setup,
-  config = config_func,
+local M       = {
+  name        = name,
+  repo        = repo,
+  description = description,
+  configs     = default_configs,
+  config      = config_func,
 }
 
 return require("core.Plugin"):new(M)
