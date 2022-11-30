@@ -11,6 +11,7 @@ Utils.const          = {
   OS_IS_WINDOWS      = fn.has("win32") or fn.has("win64"),
   OS_IS_LINUX        = fn.has("unix"),
   OS_IS_MACOSX       = fn.has("macunix"),
+  OS_IS_WSL          = fn.has("wsl"),
   OS_IS_GUIRUNNING   = fn.has("gui_running"),
   OS_PATH_SEP        = loop.os_uname().version:match "Windows" and "\\" or "/",
   OS_PATH_HOME_DIR   = fn.expand(fn.getenv("HOME")),
